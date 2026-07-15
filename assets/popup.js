@@ -87,7 +87,7 @@ document.addEventListener('click', async (e) => {
   // ⚠️ business rule: if variant is Black + Medium, also add "Soft Winter Jacket"
   const isBlackMedium = selected.includes('Black') && selected.includes('Medium');
   if (isBlackMedium) {
-    const jacket = await fetchProduct('soft-winter-jacket'); // use the real handle
+    const jacket = await fetchProduct('classic-leather-jacket'); // use the real handle
     const jacketVariant = jacket.variants[0]; // adjust if it has its own variants
     await addToCart(jacketVariant.id);
   }
@@ -98,3 +98,24 @@ document.addEventListener('click', async (e) => {
 function formatMoney(cents) {
   return `$${(cents / 100).toFixed(2)}`;
 }
+
+// Close the popup when the × button is clicked
+document.addEventListener('click', (e) => {
+  if (!e.target.matches('.product-popup__close')) return;
+  document.getElementById('product-popup').hidden = true;
+});
+
+// Close when clicking the dark overlay outside the popup content
+document.addEventListener('click', (e) => {
+  const popup = document.getElementById('product-popup');
+  if (e.target === popup) {
+    popup.hidden = true;
+  }
+});
+
+// Close on Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.getElementById('product-popup').hidden = true;
+  }
+});

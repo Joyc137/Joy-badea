@@ -39,7 +39,12 @@
       "type": "product_block",
       "name": "Product",
       "settings": [
-        { "type": "product", "id": "product", "label": "Select product" }
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select product",
+          "default": "your-product-handle-here"
+        }
       ]
     }
   ],
@@ -47,12 +52,12 @@
     {
       "name": "Product Grid",
       "blocks": [
-        { "type": "product_block" },
-        { "type": "product_block" },
-        { "type": "product_block" },
-        { "type": "product_block" },
-        { "type": "product_block" },
-        { "type": "product_block" }
+        { "type": "product_block", "settings": { "product": "product-handle-1" } },
+        { "type": "product_block", "settings": { "product": "product-handle-2" } },
+        { "type": "product_block", "settings": { "product": "product-handle-3" } },
+        { "type": "product_block", "settings": { "product": "product-handle-4" } },
+        { "type": "product_block", "settings": { "product": "product-handle-5" } },
+        { "type": "product_block", "settings": { "product": "product-handle-6" } }
       ]
     }
   ]
