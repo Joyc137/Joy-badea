@@ -1,11 +1,22 @@
+{% comment %}
+  Product Grid Section
+  Displays up to 6 merchant-selected products in a responsive grid.
+  Clicking a product opens the shared popup (see snippets/product-popup.liquid)
+  with dynamic variant selection and add-to-cart functionality.
+{% endcomment %}
+
 <div class="custom-grid">
   {% for block in section.blocks %}
     {% assign product = block.settings.product %}
     {% if product != blank %}
       <div class="custom-grid__item" data-product-handle="{{ product.handle }}" {{ block.shopify_attributes }}>
-        <img src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title }}">
-        <h3>{{ product.title }}</h3>
-        <p>{{ product.price | money }}</p>
+        <img
+          src="{{ product.featured_image | image_url: width: 600 }}"
+          alt="{{ product.title | escape }}"
+          loading="lazy"
+        >
+        <h3 class="custom-grid__title">{{ product.title }}</h3>
+        <p class="custom-grid__price">{{ product.price | money }}</p>
         <button class="custom-grid__quick-view" data-product-handle="{{ product.handle }}">
           Quick View
         </button>
@@ -14,12 +25,10 @@
   {% endfor %}
 </div>
 
-<!-- popup gets rendered once, reused for whichever product is clicked -->
 {% render 'product-popup' %}
 
 {{ 'product-grid.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'popup.js' | asset_url }}" defer></script>
-<script src="{{ 'product-grid.js' | asset_url }}" defer></script>
 
 {% schema %}
 {

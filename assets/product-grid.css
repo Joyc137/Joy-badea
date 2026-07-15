@@ -1,0 +1,81 @@
+/* ==========================================================================
+   Product Grid Section
+   Responsive grid of 6 merchant-selected products, each opening a popup
+   with dynamic variant selection on click
+   ========================================================================== */
+
+.custom-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding: 48px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.custom-grid__item {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.custom-grid__item img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.custom-grid__title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+.custom-grid__price {
+  font-size: 14px;
+  opacity: 0.75;
+  margin: 0 0 12px;
+}
+
+.custom-grid__quick-view {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border: 2px solid currentColor;
+  background: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  align-self: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.custom-grid__quick-view:hover {
+  background-color: currentColor;
+  color: #fff;
+}
+
+/* ==========================================================================
+   Mobile breakpoint — matches Dawn's convention
+   ========================================================================== */
+@media (max-width: 749px) {
+  .custom-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding: 32px 16px;
+  }
+
+  .custom-grid__title {
+    font-size: 14px;
+  }
+
+  .custom-grid__price {
+    font-size: 13px;
+  }
+
+  .custom-grid__quick-view {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+}
