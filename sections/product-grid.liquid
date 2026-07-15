@@ -1,0 +1,51 @@
+<div class="custom-grid">
+  {% for block in section.blocks %}
+    {% assign product = block.settings.product %}
+    {% if product != blank %}
+      <div class="custom-grid__item" data-product-handle="{{ product.handle }}" {{ block.shopify_attributes }}>
+        <img src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title }}">
+        <h3>{{ product.title }}</h3>
+        <p>{{ product.price | money }}</p>
+        <button class="custom-grid__quick-view" data-product-handle="{{ product.handle }}">
+          Quick View
+        </button>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+
+<!-- popup gets rendered once, reused for whichever product is clicked -->
+{% render 'product-popup' %}
+
+{{ 'product-grid.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'popup.js' | asset_url }}" defer></script>
+<script src="{{ 'product-grid.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Product Grid",
+  "max_blocks": 6,
+  "blocks": [
+    {
+      "type": "product_block",
+      "name": "Product",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Select product" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Grid",
+      "blocks": [
+        { "type": "product_block" },
+        { "type": "product_block" },
+        { "type": "product_block" },
+        { "type": "product_block" },
+        { "type": "product_block" },
+        { "type": "product_block" }
+      ]
+    }
+  ]
+}
+{% endschema %}
