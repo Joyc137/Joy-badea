@@ -1,36 +1,57 @@
-<div class="custom-grid">
-  {% for block in section.blocks %}
-    {% assign product = block.settings.product %}
-    {% if product != blank %}
-      <div class="custom-grid__item" data-product-handle="{{ product.handle }}" {{ block.shopify_attributes }}>
-        <img src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title }}">
-        <h3>{{ product.title }}</h3>
-        <p>{{ product.price | money }}</p>
-        <button class="custom-grid__quick-view" data-product-handle="{{ product.handle }}">
-          Quick View
-        </button>
-      </div>
-    {% endif %}
-  {% endfor %}
+{% comment %}
+  Product Grid Section
+  Displays a heading and a 2x3 grid of large product lifestyle photos.
+  Each photo has a circular "+" icon overlay (position configurable per
+  block) that opens the shared popup with variant selection and add-to-cart.
+{% endcomment %}
+
+<div class="custom-grid-section">
+  <h2 class="custom-grid-section__heading">{{ section.settings.heading }}</h2>
+
+  <div class="custom-grid">
+    {% for block in section.blocks %}
+      {% assign product = block.settings.product %}
+      {% if product != blank %}
+        <div class="custom-grid__item" {{ block.shopify_attributes }}>
+          <img
+            src="{{ product.featured_image | image_url: width: 800 }}"
+            alt="{{ product.title | escape }}"
+            loading="lazy"
+          >
+          <button
+            class="custom-grid__hotspot"
+            data-product-handle="{{ product.handle }}"
+            style="top: {{ block.settings.hotspot_top }}%; left: {{ block.settings.hotspot_left }}%;"
+            aria-label="View {{ product.title | escape }}"
+          >
+            <span class="custom-grid__hotspot-icon">+</span>
+          </button>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
 </div>
 
-<!-- popup gets rendered once, reused for whichever product is clicked -->
 {% render 'product-popup' %}
 
 {{ 'product-grid.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'popup.js' | asset_url }}" defer></script>
-<script src="{{ 'product-grid.js' | asset_url }}" defer></script>
 
 {% schema %}
 {
   "name": "Product Grid",
   "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Tisso vison in the wild" }
+  ],
   "blocks": [
     {
       "type": "product_block",
       "name": "Product",
       "settings": [
-        { "type": "product", "id": "product", "label": "Select product" }
+        { "type": "product", "id": "product", "label": "Select product" },
+        { "type": "range", "id": "hotspot_top", "label": "Hotspot vertical position (%)", "min": 0, "max": 100, "step": 1, "default": 35 },
+        { "type": "range", "id": "hotspot_left", "label": "Hotspot horizontal position (%)", "min": 0, "max": 100, "step": 1, "default": 65 }
       ]
     }
   ],

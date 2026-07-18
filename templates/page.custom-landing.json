@@ -1,10 +1,20 @@
 {
+  "layout": "custom-landing",
   "sections": {
     "banner": {
       "type": "banner"
     },
     "grid": {
-      "type": "product-grid"
+      "type": "product-grid",
+      "blocks": {
+        "block-1": { "type": "product_block", "settings": { "product": "ocean-blue-shirt" } },
+        "block-2": { "type": "product_block", "settings": { "product": "classic-varsity-top" } },
+        "block-3": { "type": "product_block", "settings": { "product": "yellow-wool-jumper" } },
+        "block-4": { "type": "product_block", "settings": { "product": "floral-white-top" } },
+        "block-5": { "type": "product_block", "settings": { "product": "striped-silk-blouse" } },
+        "block-6": { "type": "product_block", "settings": { "product": "classic-leather-jacket" } }
+      },
+      "block_order": ["block-1", "block-2", "block-3", "block-4", "block-5", "block-6"]
     }
   },
   "order": ["banner", "grid"]
