@@ -1,21 +1,79 @@
+{% comment %}
+  Custom Banner Section
+  Top bar + full-width standalone illustration + a row below containing
+  the text content alongside a second illustration + bottom bar.
+{% endcomment %}
+
 <div class="custom-banner">
-  <h1 class="custom-banner__heading">{{ section.settings.heading }}</h1>
-  <p class="custom-banner__subheading">{{ section.settings.subheading }}</p>
-  <button class="custom-banner__cta" data-animate>
-    {{ section.settings.button_text }}
-  </button>
+
+  <!-- Top bar: logo, announcement text, secondary CTA -->
+  <div class="custom-banner__topbar">
+    <span class="custom-banner__logo">{{ section.settings.logo_text }}</span>
+    <span class="custom-banner__announcement">{{ section.settings.announcement_text }}</span>
+    <a href="{{ section.settings.secondary_button_link }}" class="custom-banner__secondary-cta">
+      <span class="custom-banner__secondary-cta-label">
+        {{ section.settings.secondary_button_text }}
+        <span class="custom-banner__arrow">&rarr;</span>
+      </span>
+    </a>
+  </div>
+
+  <!-- First illustration: full width, standalone -->
+  <div class="custom-banner__illustration custom-banner__illustration--full">
+    <img src="{{ 'banner-illustration.svg' | asset_url }}" alt="" width="686" height="264">
+  </div>
+
+  <!-- Second row: content + second illustration side by side -->
+  <div class="custom-banner__row">
+    <div class="custom-banner__content">
+      <h1 class="custom-banner__heading">{{ section.settings.heading }}</h1>
+      <p class="custom-banner__description">{{ section.settings.description }}</p>
+      <a href="{{ section.settings.primary_button_link }}" class="custom-banner__cta">
+        <span class="custom-banner__cta-label">
+          {{ section.settings.primary_button_text }}
+          <span class="custom-banner__arrow">&rarr;</span>
+        </span>
+      </a>
+    </div>
+
+    <!-- ↓↓↓ THIS IS THE BLOCK THAT CHANGES ↓↓↓ -->
+    <div class="custom-banner__illustration custom-banner__illustration--half">
+      <img src="{{ 'banner-illustration.svg' | asset_url }}" alt="" width="686" height="264">
+
+      <!-- Mobile-only CTA, overlaid on this illustration -->
+      <a href="{{ section.settings.primary_button_link }}" class="custom-banner__cta custom-banner__mobile-cta">
+        <span class="custom-banner__cta-label">
+          {{ section.settings.primary_button_text }}
+          <span class="custom-banner__arrow">&rarr;</span>
+        </span>
+      </a>
+    </div>
+    <!-- ↑↑↑ END CHANGED BLOCK ↑↑↑ -->
+
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="custom-banner__bottombar">
+    {{ section.settings.bottom_text }}
+  </div>
+
 </div>
 
 {{ 'banner.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'banner.js' | asset_url }}" defer></script>
 
 {% schema %}
 {
   "name": "Custom Banner",
   "settings": [
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Heading here" },
-    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Subheading here" },
-    { "type": "text", "id": "button_text", "label": "Button text", "default": "Shop Now" }
+    { "type": "text", "id": "logo_text", "label": "Logo text", "default": "TISSO VISON" },
+    { "type": "text", "id": "announcement_text", "label": "Top announcement text", "default": "Find the ideal gift for your loved ones." },
+    { "type": "text", "id": "secondary_button_text", "label": "Top-right button text", "default": "CHOOSE GIFT" },
+    { "type": "url", "id": "secondary_button_link", "label": "Top-right button link" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The Gift Guide" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season." },
+    { "type": "text", "id": "primary_button_text", "label": "Primary button text", "default": "SHOP NOW" },
+    { "type": "url", "id": "primary_button_link", "label": "Primary button link" },
+    { "type": "text", "id": "bottom_text", "label": "Bottom bar text", "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL" }
   ],
   "presets": [{ "name": "Custom Banner" }]
 }

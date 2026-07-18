@@ -1,11 +1,26 @@
+{% comment %}
+  Product Popup
+  Two-column layout: image on left, product details + variant selection
+  on the right. Populated dynamically via assets/popup.js.
+{% endcomment %}
+
 <div id="product-popup" class="product-popup" hidden>
   <div class="product-popup__content">
     <button class="product-popup__close" aria-label="Close">&times;</button>
-    <img class="product-popup__image" src="" alt="">
-    <h2 class="product-popup__title"></h2>
-    <p class="product-popup__price"></p>
-    <div class="product-popup__description"></div>
-    <div class="product-popup__variants"></div>
-    <button class="product-popup__add-to-cart">ADD TO CART</button>
+
+    <div class="product-popup__image-col">
+      <img class="product-popup__image" src="" alt="">
+    </div>
+
+    <div class="product-popup__details-col">
+      <h2 class="product-popup__title"></h2>
+      <p class="product-popup__price"></p>
+      <div class="product-popup__description"></div>
+      <div class="product-popup__variants"></div>
+      <button class="product-popup__add-to-cart">
+        <span>ADD TO CART</span>
+        <span class="product-popup__cta-arrow">&rarr;</span>
+      </button>
+    </div>
   </div>
 </div>
